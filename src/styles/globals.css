@@ -25,3 +25,13 @@ body {
     text-wrap: balance;
   }
 }
+
+@font-face {
+    font-family: 'FormulaCondensedBold';
+    src: url('../styles/fonts/FormulaCondensed-Bold.otf');
+}
+
+@font-face {
+    font-family: 'FormulaCondensedLight';
+    src: url('../styles/fonts/FormulaCondensed-Light.otf');
+}
