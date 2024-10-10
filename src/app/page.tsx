@@ -1,10 +1,7 @@
-import { createStudent } from "@/actions/createStudent";
 import prisma from "@/lib/db";
 
 export default async function Home() {
-
-  const students = await prisma.student.findMany()
-
+  const students = await prisma.student.findMany();
 
   return (
     <div className="font-formulaLight flex flex-col min-h-screen bg-black justify-center items-center text-center p-10">
@@ -14,15 +11,21 @@ export default async function Home() {
         </h1>
 
         <ul className="my-10 text-center text-white font-formulaLight text-4xl">
-          {students.map((student)=>(
-            <li key={student.id}>{student.name}, {student.course}</li>
+          {students.map((student) => (
+            <li key={student.studentID}>{student.name}, {student.course}</li>
           ))}
         </ul>
 
-        <form action={createStudent} method="POST" className="space-y-4">
+        <form action="/api/student" method="POST" className="space-y-4">
           <input
             type="text"
-            name="name"
+            name="studentID"
+            placeholder="id"
+            className="outline-none border-none text-4xl text-white bg-transparent p-2 w-72"
+          />
+          <input
+            type="text"
+            name="studentName"
             placeholder="name"
             className="outline-none border-none text-4xl text-white bg-transparent p-2 w-72"
           />
@@ -36,10 +39,10 @@ export default async function Home() {
             type="submit"
             className="outline-none border-none text-4xl text-gray-400 bg-transparent p-2 w-72"
           >
-            create
+            Create
           </button>
         </form>
       </div>
     </div>
   );
-};
+}

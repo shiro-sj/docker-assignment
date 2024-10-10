@@ -9,7 +9,10 @@ datasource db {
 
 model Student {
   id     String   @id @default(cuid())
+  studentID String @unique(map: "Student_custom_studentID_key")
   name   String
   course String
   date   DateTime @default(now())
+
+  @@unique([studentID]) 
 }
