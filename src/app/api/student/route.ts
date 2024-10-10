@@ -7,7 +7,6 @@ export async function POST(request: Request) {
 
     const { studentID, studentName, course } = data;
 
-    // Check if a student with the same studentID already exists
     const existingStudent = await prisma.student.findUnique({
       where: {
         studentID: studentID,
@@ -16,12 +15,12 @@ export async function POST(request: Request) {
 
     if (existingStudent) {
       return NextResponse.json(
-        { message: "Student already exists" },
-        { status: 409 }
+        { HTTPStatusCode:409,
+          message: "Student already exists",
+        },
       );
     }
 
-    // Create a new student record
     const newStudent = await prisma.student.create({
       data: {
         studentID: studentID,
@@ -31,14 +30,18 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json(
-      { message: "Student created successfully", student: newStudent },
-      { status: 201 }
+      { HTTPStatusCode: 201,
+        message: "Student created successfully", 
+        student: newStudent,
+       },
+      
     );
   } catch (error) {
     console.error("Error creating student:", error);
     return NextResponse.json(
-      { message: "Failed to create student" },
-      { status: 500 }
+      { HTTPStatusCode: 500,
+        message: "Failed to create student" 
+      },
     );
   }
 }
